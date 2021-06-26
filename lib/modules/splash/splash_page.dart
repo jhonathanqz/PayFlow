@@ -19,7 +19,7 @@ class SplashPage extends StatelessWidget {
           ),
           Center(
             child: Container(
-              height: MediaQuery.of(context).size.height / 3.5,
+              height: MediaQuery.of(context).size.height / 3.8,
               child: Image.asset(AppImages.logoFull),
             ),
           ),

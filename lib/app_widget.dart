@@ -15,8 +15,6 @@ class AppWidget extends StatelessWidget {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: AppColors.background));
   }
   @override
   Widget build(BuildContext context) {
@@ -34,9 +32,10 @@ class AppWidget extends StatelessWidget {
         "/login": (context) => LoginPage(),
         "/barcode_scanner": (context) => BarcodeScannerPage(),
         "/insert_boleto": (context) => InsertBoletoPage(
-            barcode: ModalRoute.of(context) != null
-                ? ModalRoute.of(context)!.settings.arguments.toString()
-                : null)
+              barcode: ModalRoute.of(context) != null
+                  ? ModalRoute.of(context)!.settings.arguments.toString()
+                  : null,
+            )
       },
     );
   }
