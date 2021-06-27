@@ -1,16 +1,26 @@
-# payflow
+<br>
+<center>
+<p align="center">
+  <h1> PayFlow 💳 </h1>
+</p></center>
 
-A new Flutter project.
+## 👁‍🗨 Tecnologias
 
-## Getting Started
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-This project is a starting point for a Flutter application.
+- [Flutter](https://flutter.dev/)
+- [Dart](https://dart.dev/)
 
-A few resources to get you started if this is your first Flutter project:
+## 💻 Projeto
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+O projeto PayFlow, consiste em um aplicativo para gerenciar o vencimento das contas de nosso cotidiano. Desenvolvido em Flutter, o aplicativo é capaz de fazer login com o Google, armazenar as contas cadastradas e mostrar ao usuário final, alertando inclusive com um status de quantos boletos cadastrados há para vencer.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ▶️ Como executar
+
+- Clone o repositório
+- Abra o terminal no diretório do projeto e execute `flutter pub get`
+- Inicie seu app com `flutter run`
+
+---
+<br>
+Este projeto foi desenvolvido com o evento #NLW06 da #Rocketseat.
