@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 
-class TextStyles {
+class AppTextStyles {
   static final titleHome = GoogleFonts.lexendDeca(
     fontSize: 32,
     fontWeight: FontWeight.w600,
@@ -12,6 +12,16 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w400,
     color: AppColors.background,
+  );
+  static final titleMenu = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.secondary,
+  );
+  static final titleModal = GoogleFonts.lexendDeca(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: AppColors.body,
   );
   static final titleBoldHeading = GoogleFonts.lexendDeca(
     fontSize: 20,
@@ -48,11 +58,13 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.heading,
   );
-  static final buttonGray = GoogleFonts.inter(
+  static final buttonLogout = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w400,
-    color: AppColors.grey,
+    color: AppColors.delete,
   );
+  static final buttonGray = GoogleFonts.inter(
+      fontSize: 15, fontWeight: FontWeight.w400, color: AppColors.secondary);
   static final buttonBackground = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w400,
@@ -71,7 +83,7 @@ class TextStyles {
   static final buttonBoldGray = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w700,
-    color: AppColors.grey,
+    color: AppColors.secondary,
   );
   static final buttonBoldBackground = GoogleFonts.inter(
     fontSize: 15,

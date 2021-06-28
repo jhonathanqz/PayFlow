@@ -1,6 +1,5 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
-
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 
@@ -10,17 +9,18 @@ class InputTextWidget extends StatelessWidget {
   final String? initialValue;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final void Function(String value) onChanged;
   final TextInputType? textInputType;
+  final void Function(String value) onChanged;
+
   const InputTextWidget({
     Key? key,
-    required this.label,
     required this.icon,
-    required this.onChanged,
+    required this.label,
     this.initialValue,
     this.validator,
     this.controller,
     this.textInputType,
+    required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -32,21 +32,23 @@ class InputTextWidget extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              controller: controller,
-              initialValue: initialValue,
               validator: validator,
               onChanged: onChanged,
+              controller: controller,
               keyboardType: textInputType,
-              style: TextStyles.input,
+              initialValue: initialValue,
+              style: AppTextStyles.input,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
                 labelText: label,
-                labelStyle: TextStyles.input,
+                labelStyle: AppTextStyles.input,
                 icon: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                      ),
                       child: Icon(
                         icon,
                         color: AppColors.primary,
@@ -62,11 +64,11 @@ class InputTextWidget extends StatelessWidget {
                 border: InputBorder.none,
               ),
             ),
-            Divider(
+            const Divider(
               height: 1,
               thickness: 1,
               color: AppColors.stroke,
-            )
+            ),
           ],
         ),
       ),

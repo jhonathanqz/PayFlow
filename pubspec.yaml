@@ -39,6 +39,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   flutter_masked_text2: ^0.9.1
   animated_card: ^2.0.0
+  uuid: ^3.0.4
 
 dev_dependencies:
   flutter_test:
