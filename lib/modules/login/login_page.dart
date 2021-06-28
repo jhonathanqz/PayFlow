@@ -29,8 +29,9 @@ class _LoginPageState extends State<LoginPage> {
               height: size.height * 0.36,
               decoration: BoxDecoration(
                 color: AppColors.primary,
-                borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(50.0)),
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50.0),
+                ),
               ),
             ),
             Positioned(
@@ -66,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Organize seus boletos em um só lugar",
                       textAlign: TextAlign.center,
-                      style: TextStyles.titleHome,
+                      style: AppTextStyles.titleHome,
                     ),
                   ),
                   Padding(

@@ -6,24 +6,31 @@ import 'package:image_picker/image_picker.dart';
 import 'barcode_scanner_status.dart';
 
 class BarcodeScannerController {
-  final statusNotifier =
-      ValueNotifier<BarcodeScannerStatus>(BarcodeScannerStatus());
+  final statusNotifier = ValueNotifier<BarcodeScannerStatus>(
+    BarcodeScannerStatus(),
+  );
+
   BarcodeScannerStatus get status => statusNotifier.value;
   set status(BarcodeScannerStatus status) => statusNotifier.value = status;
 
-  final barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+  BarcodeScanner barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+  CameraController? cameraController;
 
   InputImage? imagePicker;
-
-  CameraController? cameraController;
 
   void getAvailableCameras() async {
     try {
       final response = await availableCameras();
       final camera = response.firstWhere(
-          (element) => element.lensDirection == CameraLensDirection.back);
-      cameraController =
-          CameraController(camera, ResolutionPreset.max, enableAudio: false);
+        (element) => element.lensDirection == CameraLensDirection.back,
+      );
+
+      cameraController = CameraController(
+        camera,
+        ResolutionPreset.max,
+        enableAudio: false,
+      );
+
       await cameraController!.initialize();
       scanWithCamera();
       listenCamera();
@@ -36,7 +43,7 @@ class BarcodeScannerController {
     try {
       final barcodes = await barcodeScanner.processImage(inputImage);
 
-      var barcode;
+      dynamic barcode;
       for (Barcode item in barcodes) {
         barcode = item.value.displayValue;
       }
@@ -49,7 +56,7 @@ class BarcodeScannerController {
 
       return;
     } catch (e) {
-      print("ERRO DA LEITURA $e");
+      debugPrint("Erro da leitura: $e");
     }
   }
 
@@ -61,29 +68,37 @@ class BarcodeScannerController {
 
   void scanWithCamera() {
     status = BarcodeScannerStatus.available();
-    Future.delayed(Duration(seconds: 20)).then((value) {
-      if (status.hasBarcode == false)
+    Future.delayed(const Duration(seconds: 20)).then((value) {
+      if (status.hasBarcode == false) {
         status = BarcodeScannerStatus.error("Timeout de leitura de boleto");
+      }
     });
   }
 
   void listenCamera() {
-    if (cameraController!.value.isStreamingImages == false)
+    if (cameraController!.value.isStreamingImages == false) {
       cameraController!.startImageStream((cameraImage) async {
         if (status.stopScanner == false) {
           try {
             final WriteBuffer allBytes = WriteBuffer();
+
             for (Plane plane in cameraImage.planes) {
               allBytes.putUint8List(plane.bytes);
             }
+
             final bytes = allBytes.done().buffer.asUint8List();
+
             final Size imageSize = Size(
-                cameraImage.width.toDouble(), cameraImage.height.toDouble());
-            final InputImageRotation imageRotation =
-                InputImageRotation.Rotation_0deg;
-            final InputImageFormat inputImageFormat =
+              cameraImage.width.toDouble(),
+              cameraImage.height.toDouble(),
+            );
+
+            InputImageRotation imageRotation = InputImageRotation.Rotation_0deg;
+
+            InputImageFormat inputImageFormat =
                 InputImageFormatMethods.fromRawValue(cameraImage.format.raw) ??
                     InputImageFormat.NV21;
+
             final planeData = cameraImage.planes.map(
               (Plane plane) {
                 return InputImagePlaneMetadata(
@@ -100,14 +115,19 @@ class BarcodeScannerController {
               inputImageFormat: inputImageFormat,
               planeData: planeData,
             );
+
             final inputImageCamera = InputImage.fromBytes(
-                bytes: bytes, inputImageData: inputImageData);
+              bytes: bytes,
+              inputImageData: inputImageData,
+            );
+
             scannerBarCode(inputImageCamera);
           } catch (e) {
-            print(e);
+            debugPrint(e.toString());
           }
         }
       });
+    }
   }
 
   void dispose() {

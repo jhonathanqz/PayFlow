@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
-
 import 'package:payflow/shared/widgets/divider_vertical/divider_vertical_widget.dart';
 import 'package:payflow/shared/widgets/label_button/label_button.dart';
 
@@ -12,6 +11,8 @@ class SetLabelButtons extends StatelessWidget {
   final VoidCallback secondaryOnPressed;
   final bool enablePrimaryColor;
   final bool enableSecondaryColor;
+  final bool showProgress;
+
   const SetLabelButtons({
     Key? key,
     required this.primaryLabel,
@@ -20,6 +21,7 @@ class SetLabelButtons extends StatelessWidget {
     required this.secondaryOnPressed,
     this.enablePrimaryColor = false,
     this.enableSecondaryColor = false,
+    this.showProgress = false,
   }) : super(key: key);
 
   @override
@@ -30,28 +32,35 @@ class SetLabelButtons extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Divider(
+          const Divider(
             thickness: 1,
             height: 1,
             color: AppColors.stroke,
           ),
-          Container(
+          SizedBox(
             height: 56,
             child: Row(
               children: [
                 Expanded(
-                    child: LabelButton(
-                  label: primaryLabel,
-                  onPressed: primaryOnPressed,
-                  style: enablePrimaryColor ? AppTextStyles.buttonPrimary : null,
-                )),
-                DividerVerticalWidget(),
+                  child: LabelButton(
+                    label: primaryLabel,
+                    onPressed: primaryOnPressed,
+                    style:
+                        enablePrimaryColor ? AppTextStyles.buttonPrimary : null,
+                    showProgress: enablePrimaryColor ? showProgress : false,
+                  ),
+                ),
+                const DividerVerticalWidget(),
                 Expanded(
-                    child: LabelButton(
-                  label: secondaryLabel,
-                  onPressed: secondaryOnPressed,
-                  style: enableSecondaryColor ? AppTextStyles.buttonPrimary : null,
-                ))
+                  child: LabelButton(
+                    label: secondaryLabel,
+                    onPressed: secondaryOnPressed,
+                    style: enableSecondaryColor
+                        ? AppTextStyles.buttonPrimary
+                        : null,
+                    showProgress: enableSecondaryColor ? showProgress : false,
+                  ),
+                ),
               ],
             ),
           ),
