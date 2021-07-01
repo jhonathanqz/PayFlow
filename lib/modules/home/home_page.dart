@@ -5,6 +5,7 @@ import 'package:payflow/modules/home/home_controller.dart';
 import 'package:payflow/modules/login/login_controller.dart';
 import 'package:payflow/modules/menu/menu_page.dart';
 import 'package:payflow/modules/my_boletos/my_boletos_page.dart';
+import 'package:payflow/shared/auth/auth_controller.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
@@ -79,7 +80,8 @@ class _HomePageState extends State<HomePage> {
               size: 25,
             ),
             onPressed: () async {
-              await controllerLogin.signOut(context);
+              await AuthController().deleteUser();
+              await controllerLogin.googleLogout(context);
             }),
         leading: GestureDetector(
           onTap: () {

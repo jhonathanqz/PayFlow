@@ -15,7 +15,7 @@ class ExtractPage extends StatefulWidget {
 }
 
 class _ExtractPageState extends State<ExtractPage> {
-  final _boletoListController = BoletoListController();
+  final _boletoListController = BoletoListController(onlyPayed: true);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class _ExtractPageState extends State<ExtractPage> {
               });
 
               return Text(
-                "$counter pago(s)",
+                "${boletos.length <= 1 ? "${boletos.length} pago" : "${boletos.length} pagos"}",
                 style: AppTextStyles.buttonGray,
               );
             },
