@@ -1,8 +1,9 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:payflow/shared/auth/auth_controller.dart';
 import 'package:payflow/shared/models/boleto_model.dart';
+import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/boleto_tile/boleto_tile_controller.dart';
@@ -109,6 +110,7 @@ class _BoletoTileWidgetState extends State<BoletoTileWidget> {
                 secondaryOnPressed: () async {
                   await _boletoTileController.payBoleto(
                     id: widget.boletoModel.id,
+                    boleto: widget.boletoModel,
                   );
                   setState(() {
                     widget.boletoModel.isPaid = true;
@@ -116,7 +118,12 @@ class _BoletoTileWidgetState extends State<BoletoTileWidget> {
                   setState(() {});
                   print(
                       'dados do boleto. id: ${widget.boletoModel.id}, pago: ${widget.boletoModel.isPaid}, valor: ${widget.boletoModel.value}, nome: ${widget.boletoModel.name}');
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  UserModel user =
+                      await AuthController().getCurrentUser(context);
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/home', (Route<dynamic> route) => false,
+                      arguments: user);
                 },
                 enableSecondaryColor: true,
               ),

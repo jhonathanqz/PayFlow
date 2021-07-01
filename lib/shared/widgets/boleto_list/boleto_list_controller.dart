@@ -7,15 +7,16 @@ class BoletoListController {
   List<BoletoModel> get boletos => boletosNotifier.value;
   set boletos(List<BoletoModel> value) => boletosNotifier.value = value;
 
-  BoletoListController() {
-    getBoletos();
+  BoletoListController({bool onlyPayed = false}) {
+    getBoletos(onlyPayed);
   }
 
-  Future<void> getBoletos() async {
+  Future<void> getBoletos(bool onlyPayed) async {
     try {
       final instance = await SharedPreferences.getInstance();
       final response = instance.getStringList('boletos') ?? <String>[];
       boletos = response.map((e) => BoletoModel.fromJson(e)).toList();
+      boletos.removeWhere((element) => element.isPaid == !onlyPayed);
     } catch (e) {
       boletos = <BoletoModel>[];
     }

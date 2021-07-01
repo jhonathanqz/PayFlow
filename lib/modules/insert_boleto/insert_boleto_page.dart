@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:payflow/modules/insert_boleto/insert_boleto_controller.dart';
+import 'package:payflow/shared/auth/auth_controller.dart';
+import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/widgets/input_text/input_text_widget.dart';
@@ -31,7 +33,7 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
 
   @override
   void initState() {
-    if (widget.barcode != null) {
+    if (widget.barcode != "null") {
       _barcodeInputTextController.text = widget.barcode!;
     }
     super.initState();
@@ -153,13 +155,37 @@ class _InsertBoletoPageState extends State<InsertBoletoPage> {
       builder: (context, snapshot) {
         return SetLabelButtons(
           primaryLabel: "Cancelar",
-          primaryOnPressed: () => Navigator.pop(context),
+          primaryOnPressed: () =>
+              Navigator.popUntil(context, ModalRoute.withName("/home")),
           enableSecondaryColor: true,
           showProgress: _insertBoletoController.isProcessing,
           secondaryLabel: "Cadastrar",
           secondaryOnPressed: () async {
-            await _insertBoletoController.registerBoleto();
-            Navigator.pop(context);
+            if (_barcodeInputTextController.text.isNotEmpty &&
+                _moneyInputTextController.text.isNotEmpty &&
+                _dueDateInputTextController.text.isNotEmpty) {
+              await _insertBoletoController.registerBoleto();
+              UserModel user = await AuthController().getCurrentUser(context);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false,
+                  arguments: user);
+              //Navigator.pop(context);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Verifique os campos em branco.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  backgroundColor: Colors.red,
+                  duration: Duration(
+                    seconds: 3,
+                  ),
+                ),
+              );
+            }
           },
         );
       },

@@ -42,6 +42,19 @@ class LoginController {
     }
   }
 
+  Future<void> googleLogout(BuildContext context) async {
+    GoogleSignIn _googleSignIn = GoogleSignIn();
+    try {
+      await _googleSignIn.signOut();
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/login',
+        (route) => false,
+      );
+    } catch (error) {
+      print("ERRO LOGOUT --> $error");
+    }
+  }
+
   Future<GoogleSignInAccount?> signOut(BuildContext context) async {
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
@@ -53,7 +66,7 @@ class LoginController {
         '/login',
         (route) => false,
       );
-     print('**Fiz o signOut. ');
+      print('**Fiz o signOut. ');
     } catch (error) {
       authController.setUser(context, null);
       print('Erro ao realizar signOut. Erro recebido: $error');

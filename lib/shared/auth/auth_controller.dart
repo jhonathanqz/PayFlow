@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:payflow/shared/models/user_model.dart';
 import 'package:payflow/shared/utils/navigator.dart';
 import 'package:payflow/shared/utils/prefs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
   UserModel? _user;
@@ -40,6 +41,11 @@ class AuthController {
     await GoogleSignIn(scopes: ['email']).signOut();
   }
 
+  Future<void> deleteUser() async {
+    final instance = await SharedPreferences.getInstance();
+    instance.remove("user");
+  }
+
   Future<void> currentUser(BuildContext context) async {
     String result = await Prefs.getString('user');
 
@@ -54,5 +60,10 @@ class AuthController {
         null,
       );
     }
+  }
+
+  Future<UserModel> getCurrentUser(BuildContext context) async {
+    final instance = await SharedPreferences.getInstance();
+    return UserModel.fromJson(instance.get("user").toString());
   }
 }
