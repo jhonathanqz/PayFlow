@@ -17,8 +17,8 @@ O projeto PayFlow, consiste em um aplicativo para gerenciar o vencimento das con
 
 # screenshots
 <div>
-  <img src="https://github.com/jhonathanqz/PayFlow/blob/master/screenshots/home1.jpg" width="150px" style="max-width:100%;" alt="imagem do projeto">
-  <img src="https://github.com/jhonathanqz/PayFlow/blob/master/screenshots/home2.jpg" width="150px" style="max-width:100%;" alt="imagem do projeto">
+  <img src="https://github.com/jhonathanqz/PayFlow/blob/master/screenshots/home1.jpg" width=400"px" style="max-width:100%;" alt="imagem do projeto">
+  <img src="https://github.com/jhonathanqz/PayFlow/blob/master/screenshots/home2.jpg" width="400px" style="max-width:100%;" alt="imagem do projeto">
 </div>
 
 ## ▶️ Como executar
