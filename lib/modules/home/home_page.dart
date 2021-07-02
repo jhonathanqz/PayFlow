@@ -11,6 +11,7 @@ import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 import 'package:payflow/shared/utils/navigator.dart';
 import 'package:payflow/shared/utils/text_utils.dart';
+import 'package:payflow/shared/widgets/alert/app_alert.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -75,14 +76,25 @@ class _HomePageState extends State<HomePage> {
           style: AppTextStyles.captionShape,
         ),
         trailing: IconButton(
-            icon: Icon(
-              FontAwesomeIcons.signOutAlt,
-              size: 25,
-            ),
-            onPressed: () async {
-              await AuthController().deleteUser();
-              await controllerLogin.googleLogout(context);
-            }),
+          icon: Icon(
+            FontAwesomeIcons.signOutAlt,
+            size: 25,
+          ),
+          onPressed: () {
+            AppAlert.dialog(
+              context: context,
+              title: "Sair do PayFlow?",
+              message: "Deseja mesmo sair do aplicativo?",
+              firstButtonTitle: "Não",
+              secondButtonTitle: "Sim",
+              function: () async {
+                await AuthController().logout();
+                await AuthController().deleteUser();
+                await controllerLogin.googleLogout(context);
+              },
+            );
+          },
+        ),
         leading: GestureDetector(
           onTap: () {
             _homeController.setPage(2);
