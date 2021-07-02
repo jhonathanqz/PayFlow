@@ -40,6 +40,7 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   animated_card: ^2.0.0
   uuid: ^3.0.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
