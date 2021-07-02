@@ -29,8 +29,9 @@ class _BoletoTileWidgetState extends State<BoletoTileWidget> {
     return AnimatedCard(
       direction: AnimatedCardDirection.right,
       child: ListTile(
-        onTap:
-            widget.boletoModel.isPaid ? null : () => _modalBottomSheet(context),
+        onTap: widget.boletoModel.isPaid
+            ? () => _modalBottomDelete(context)
+            : () => _modalBottomSheet(context),
         contentPadding: EdgeInsets.zero,
         title: Text(
           widget.boletoModel.name!,
@@ -150,6 +151,90 @@ class _BoletoTileWidgetState extends State<BoletoTileWidget> {
     );
   }
 
+  _modalBottomDelete(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 24,
+              ),
+              child: Text.rich(
+                TextSpan(
+                  text: "Atenção! ",
+                  style: AppTextStyles.titleBoldHeading,
+                  children: [
+                    TextSpan(
+                      text: "\nDeseja excluir o boleto, ",
+                      style: AppTextStyles.titleModal,
+                    ),
+                    TextSpan(
+                      text: widget.boletoModel.name,
+                      style: AppTextStyles.titleBoldHeading,
+                    ),
+                    TextSpan(
+                      text: "\nno valor de R\$ ",
+                      style: AppTextStyles.titleModal,
+                    ),
+                    TextSpan(
+                      //text: widget.boletoModel.value.toString(),
+                      text: widget.boletoModel.value!.toStringAsFixed(2),
+                      style: AppTextStyles.titleBoldHeading,
+                    ),
+                    TextSpan(
+                      text: " ?",
+                      style: AppTextStyles.titleModal,
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
+              child: SetLabelButtons(
+                primaryLabel: "Nâo",
+                primaryOnPressed: () {
+                  Navigator.pop(context);
+                },
+                secondaryLabel: "Excluir",
+                secondaryOnPressed: () async {
+                  await _boletoTileController.deleteBoleto(
+                    id: widget.boletoModel.id,
+                  );
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+                enableSecondaryColor: true,
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              height: 1,
+              endIndent: 24,
+              indent: 24,
+              color: AppColors.stroke,
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            const Divider(
+              thickness: 1,
+              height: 1,
+              color: AppColors.stroke,
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   InkWell buildDeleteButton(BuildContext context) {
     return InkWell(
       onTap: () async {
@@ -164,7 +249,7 @@ class _BoletoTileWidgetState extends State<BoletoTileWidget> {
           Expanded(
             child: Container(
               height: 50,
-              color: AppColors.primary,
+              color: AppColors.secondary,
               child: Center(
                 child: Text(
                   'Excluir Boleto',

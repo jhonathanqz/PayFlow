@@ -27,7 +27,7 @@ class AppAlert {
             ),
             LabelButton(
               label: secondButtonTitle,
-              backgroundColor: AppColors.delete,
+              backgroundColor: AppColors.primary,
               style: AppTextStyles.buttonBackground,
               onPressed: function,
             ),

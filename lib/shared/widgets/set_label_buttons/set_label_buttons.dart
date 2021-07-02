@@ -48,6 +48,7 @@ class SetLabelButtons extends StatelessWidget {
                     style:
                         enablePrimaryColor ? AppTextStyles.buttonPrimary : null,
                     showProgress: enablePrimaryColor ? showProgress : false,
+                    backgroundColor: Colors.white,
                   ),
                 ),
                 const DividerVerticalWidget(),
@@ -56,9 +57,16 @@ class SetLabelButtons extends StatelessWidget {
                     label: secondaryLabel,
                     onPressed: secondaryOnPressed,
                     style: enableSecondaryColor
-                        ? AppTextStyles.buttonPrimary
-                        : null,
+                        ? TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          )
+                        : TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
                     showProgress: enableSecondaryColor ? showProgress : false,
+                    backgroundColor: AppColors.primary,
                   ),
                 ),
               ],
