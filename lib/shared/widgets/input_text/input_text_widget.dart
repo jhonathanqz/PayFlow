@@ -1,42 +1,51 @@
 import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
 
 class InputTextWidget extends StatelessWidget {
   final String label;
+  final bool typeNumeric;
   final IconData icon;
   final String? initialValue;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final TextInputType? textInputType;
   final void Function(String value) onChanged;
+  final FocusNode? focusNode;
+  final bool habilitado;
 
   const InputTextWidget({
     Key? key,
-    required this.icon,
     required this.label,
+    required this.icon,
     this.initialValue,
     this.validator,
     this.controller,
-    this.textInputType,
     required this.onChanged,
+    this.typeNumeric = false,
+    this.focusNode,
+    this.habilitado = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedCard(
-      direction: AnimatedCardDirection.left,
+      direction: AnimatedCardDirection.right,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: Column(
           children: [
             TextFormField(
-              validator: validator,
-              onChanged: onChanged,
+              enabled: habilitado,
+              maxLines: 2,
+              focusNode: focusNode,
+              keyboardType:
+                  typeNumeric ? TextInputType.number : TextInputType.text,
               controller: controller,
-              keyboardType: textInputType,
+              onChanged: onChanged,
               initialValue: initialValue,
+              validator: validator,
               style: AppTextStyles.input,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
@@ -46,9 +55,7 @@ class InputTextWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
                       child: Icon(
                         icon,
                         color: AppColors.primary,
@@ -58,16 +65,16 @@ class InputTextWidget extends StatelessWidget {
                       width: 1,
                       height: 48,
                       color: AppColors.stroke,
-                    )
+                    ),
                   ],
                 ),
                 border: InputBorder.none,
               ),
             ),
-            const Divider(
+            Divider(
+              color: AppColors.stroke,
               height: 1,
               thickness: 1,
-              color: AppColors.stroke,
             ),
           ],
         ),
