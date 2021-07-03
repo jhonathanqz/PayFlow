@@ -4,7 +4,7 @@ class AppColors {
   static const primary = Color(0xFFb01414);
   static const secondary = Color(0xFF585666);
 
-  static const delete = Color(0xFFE83F5B);
+  static const delete = Color(0xFFff0000);
   static const heading = Color(0xFF585666);
   static const body = Color(0xFF706E7A);
   static const input = Color(0xFFB1B0B8);

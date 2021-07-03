@@ -90,6 +90,7 @@ class _ConfirmacaoBoletoPageState extends State<ConfirmacaoBoletoPage> {
                   children: [
                     InputTextWidget(
                       habilitado: true,
+                      typeNumeric: true,
                       controller: barcodeInputTextController,
                       label: "Código",
                       icon: FontAwesomeIcons.barcode,
@@ -98,6 +99,7 @@ class _ConfirmacaoBoletoPageState extends State<ConfirmacaoBoletoPage> {
                     ),
                     InputTextWidget(
                       habilitado: true,
+                      typeNumeric: true,
                       controller: dueDateInputTextController,
                       label: "Vencimento",
                       icon: FontAwesomeIcons.calendarCheck,
@@ -106,6 +108,7 @@ class _ConfirmacaoBoletoPageState extends State<ConfirmacaoBoletoPage> {
                     ),
                     InputTextWidget(
                       habilitado: true,
+                      typeNumeric: true,
                       controller: moneyInputTextController,
                       label: "Valor",
                       icon: FontAwesomeIcons.wallet,

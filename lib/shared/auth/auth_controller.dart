@@ -50,11 +50,13 @@ class AuthController {
     String result = await Prefs.getString('user');
 
     if (result.isNotEmpty) {
+      await Future.delayed(Duration(seconds: 2));
       setUser(
         context,
         UserModel.fromJson(result),
       );
     } else {
+      await Future.delayed(Duration(seconds: 2));
       setUser(
         context,
         null,

@@ -28,6 +28,8 @@ O projeto PayFlow, consiste em um aplicativo para gerenciar o vencimento das con
 - Clone o repositório
 - Abra o terminal no diretório do projeto e execute `flutter pub get`
 - Inicie seu app com `flutter run`
+<br>
+Obs: Por motivos de segurança, o arquivo google-services.json não está incluso neste projeto. É necessário criar um projeto no firebase, vincular este projeto ao firebase, ativar a função de login com o Google no firebase e logo depois obter o arquivo google-services.json, também pelo firebase. Após obter o arquivo, é necessário colocar no diretório do projeto /android/app/{colocar_aqui}.
 
 ---
 <br>
