@@ -23,18 +23,20 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Visibility(
-          visible: widget.hasNotification,
-          child: buildBoletoInfoWidget(),
-        ),
-        buildTitle(),
-        buildLine(),
-        BoletoListWidget(
-          boletoListController: _boletoListController,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Visibility(
+            visible: widget.hasNotification,
+            child: buildBoletoInfoWidget(),
+          ),
+          buildTitle(),
+          buildLine(),
+          BoletoListWidget(
+            boletoListController: _boletoListController,
+          ),
+        ],
+      ),
     );
   }
 

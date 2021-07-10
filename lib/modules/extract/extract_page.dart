@@ -19,12 +19,14 @@ class _ExtractPageState extends State<ExtractPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildTitle(),
-        buildLine(),
-        buildListView(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildTitle(),
+          buildLine(),
+          buildListView(),
+        ],
+      ),
     );
   }
 
