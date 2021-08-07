@@ -83,9 +83,19 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
           ValueListenableBuilder<List<BoletoModel>>(
             valueListenable: _boletoListController.boletosNotifier,
             builder: (_, boletos, __) {
-              return Text(
-                "${boletos.length} ao total",
-                style: AppTextStyles.buttonGray,
+              final totalizer = boletos.fold<double>(
+                  0, (sum, next) => sum + next.value!.toDouble());
+              return Column(
+                children: [
+                  Text(
+                    "${boletos.length} ao total",
+                    style: AppTextStyles.buttonGray,
+                  ),
+                  Text(
+                    'R\$ ${totalizer.toStringAsFixed(2).replaceAll('.', ',')}',
+                    style: AppTextStyles.buttonGray,
+                  ),
+                ],
               );
             },
           ),
