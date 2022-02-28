@@ -23,18 +23,20 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Visibility(
-          visible: widget.hasNotification,
-          child: buildBoletoInfoWidget(),
-        ),
-        buildTitle(),
-        buildLine(),
-        BoletoListWidget(
-          boletoListController: _boletoListController,
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Visibility(
+            visible: widget.hasNotification,
+            child: buildBoletoInfoWidget(),
+          ),
+          buildTitle(),
+          buildLine(),
+          BoletoListWidget(
+            boletoListController: _boletoListController,
+          ),
+        ],
+      ),
     );
   }
 
@@ -81,9 +83,19 @@ class _MyBoletosPageState extends State<MyBoletosPage> {
           ValueListenableBuilder<List<BoletoModel>>(
             valueListenable: _boletoListController.boletosNotifier,
             builder: (_, boletos, __) {
-              return Text(
-                "${boletos.length} ao total",
-                style: AppTextStyles.buttonGray,
+              final totalizer = boletos.fold<double>(
+                  0, (sum, next) => sum + next.value!.toDouble());
+              return Column(
+                children: [
+                  Text(
+                    "${boletos.length} ao total",
+                    style: AppTextStyles.buttonGray,
+                  ),
+                  Text(
+                    'R\$ ${totalizer.toStringAsFixed(2).replaceAll('.', ',')}',
+                    style: AppTextStyles.buttonGray,
+                  ),
+                ],
               );
             },
           ),

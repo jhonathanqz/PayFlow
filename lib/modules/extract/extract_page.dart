@@ -19,12 +19,14 @@ class _ExtractPageState extends State<ExtractPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildTitle(),
-        buildLine(),
-        buildListView(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          buildTitle(),
+          buildLine(),
+          buildListView(),
+        ],
+      ),
     );
   }
 
@@ -52,10 +54,19 @@ class _ExtractPageState extends State<ExtractPage> {
                   counter++;
                 }
               });
-
-              return Text(
-                "${boletos.length <= 1 ? "${boletos.length} pago" : "${boletos.length} pagos"}",
-                style: AppTextStyles.buttonGray,
+              final totalizer = boletos.fold<double>(
+                  0, (sum, next) => sum + next.value!.toDouble());
+              return Column(
+                children: [
+                  Text(
+                    "${boletos.length <= 1 ? "${boletos.length} pago" : "${boletos.length} pagos"}",
+                    style: AppTextStyles.buttonGray,
+                  ),
+                  Text(
+                    'R\$ ${totalizer.toStringAsFixed(2).replaceAll('.', ',')}',
+                    style: AppTextStyles.buttonGray,
+                  ),
+                ],
               );
             },
           ),
